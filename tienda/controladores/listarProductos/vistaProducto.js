@@ -13,7 +13,28 @@ export async function vistaProducto(){
      * 6-El resultado de la función deberá asignarse al elemento .vistaProducto capturado previamente.
      * 7-Se deberá capturar el elemento html correspondiente al anchor btnComprar y enlazar el evento click a la función registrarCompra.  
     */
-   
+    try {
+        let d = document
+
+        let carrusel = d.querySelector(".carrusel")
+        let seccionProducto = d.querySelector(".seccionProducto")
+        let seccionLogin = d.querySelector(".seccionLogin")
+
+        carrusel.innerHTML = seccionProducto.innerHTML = seccionLogin.innerHTML = ""
+
+        let vistaProducto = d.querySelector(".vistaProducto")
+
+        let idProducto = leerParametro()
+
+        let producto = await productosServices.listar(idProducto)
+        vistaProducto.innerHTML = htmlVistaProducto(idProducto, producto.nombre, producto.descripcion, producto.precio, producto.imagen)
+
+        let btnComprar = d.querySelector("#btnComprar")
+        btnComprar.addEventListener("click", registrarCompra)
+    } catch (error) {
+        console.error("Error al renderizar la vista del producto:", error);
+        alert("Ocurrió un problema al cargar el producto. Inténtelo de nuevo más tarde.");
+    }
 }
 
 function htmlVistaProducto(id, nombre, descripcion, precio, imagen) {
@@ -27,8 +48,33 @@ function htmlVistaProducto(id, nombre, descripcion, precio, imagen) {
      *   let cadena = `Hola, ${titulo} Claudia  en que podemos ayudarla`;
      *   
     */
-    
+    let htmlProducto=
+    `
+        <div class="imagen">
+                <img src="${imagen}" alt="producto">
+            </div>
+            <div class="texto">
+                <p id="nameProducto" data-idproducto="${id}">${nombre}</p>
+
+                <p id="descripcionProducto">${descripcion}</p>
+
+                <p id="precioProducto">$ ${precio}</p>
+
+                <div class="form-group">
+                    <label for="cantidadProducto">Cantidad</label>
+                    <input type="number" step="1" min ="1" value="1" id="cantidadProducto">
+
+
+                </div>
+                
+                <a id="btnComprar" >Comprar</a>
+
+
+            </div>
+    `
+    return htmlProducto
 }
+
 function leerParametro(){
     // Captura el idProducto de la dirección URL enviada por la página que llama
     const words = new URLSearchParams(window.location.search);
@@ -36,7 +82,6 @@ function leerParametro(){
     if (!cad) return null;
     return cad.trim();
 }
-
 
 function registrarCompra(){
     /**1-Esta función es la encargada de procesar el evento click del anchor btnComprar.
@@ -58,5 +103,24 @@ function registrarCompra(){
      *     
      */
     
-    
+    let session = getUsuarioAutenticado()
+    if (!session.autenticado) {
+        alert("Antes de realizar una compra debe iniciar sesión")
+        return
+    }
+
+    let idUsuario = session.idUsuario
+    let emailUsuario = session.email
+    let nameProducto = document.querySelector("#nameProducto")
+    let cantidadProducto = document.querySelector("#cantidadProducto")
+    let idProducto = nameProducto.getAttribute("data-idproducto")
+    let fecha = new Date().toISOString()
+
+    ventasServices.crear(idUsuario, emailUsuario, idProducto, nameProducto.textContent, cantidadProducto.value, fecha, "").then(() => {
+        Location.replace("tienda.html")
+        alert("Compra finalizada")
+    }).catch((error) => {
+        console.error("Error al registrar la compra:", error);
+        alert("Ocurrió un problema al procesar la compra. Inténtelo de nuevo.");
+    })
 }
