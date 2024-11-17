@@ -13,21 +13,21 @@ const htmlLogin=
                       
                       <div class="input-group double-group">
                         
-                        <input type="text" class="form-control" id="reLoginName" placeholder="Name" name="reLoginName" autocomplete required>
+                        <input type="text" class="form-control" id="reLoginName" placeholder="Name" name="reLoginName" autocomplete="given-name" required>
                         
-                        <input type="text" class="form-control" id="reLoginSurname" placeholder="Surname" name="reLoginSurname" autocomplete required>
+                        <input type="text" class="form-control" id="reLoginSurname" placeholder="Surname" name="reLoginSurname" autocomplete="family-name" required>
                            
                       </div>
             
                       <div class="input-group">
                         
-                        <input type="email" class="form-control" id="loginEmail" placeholder="Email" name="loginEmail" autocomplete required>
+                        <input type="email" class="form-control" id="loginEmail" placeholder="Email" name="loginEmail" autocomplete="email" required>
                            
                       </div>
             
                       <div class="input-group">
                         
-                        <input type="password" class="form-control" id="loginPassword" placeholder="Password" name="loginPassword" autocomplete required>
+                        <input type="password" class="form-control" id="loginPassword" placeholder="Password" name="loginPassword" autocomplete="new-password" required>
                        
                       </div>
 
@@ -69,7 +69,7 @@ export async function login(){
     crearFormulario()
 
     let btnIniciarSesion = document.querySelector("#iniciar-sesion")
-    btnIniciarSesion.addEventListener("submit", ingresar)
+    btnIniciarSesion.addEventListener("click", ingresar)
 }  
 
 export async function register(){
@@ -83,7 +83,7 @@ export async function register(){
     crearFormulario(true)
 
     let btnIniciarSesion = document.querySelector("#iniciar-sesion")
-    btnIniciarSesion.addEventListener("submit", registrarUsuario)
+    btnIniciarSesion.addEventListener("click", registrarUsuario)
 }  
 
 
@@ -146,13 +146,15 @@ async function  ingresar(e){
     
     e.preventDefault()
 
-    let usuarioExiste = usuarioExiste()
+    let existeUsuario = await usuarioExiste()
+    let email = inputEmail.value
 
-    if (!usuarioExiste) {
+    if (!existeUsuario) {
         alert("Email o contraseña incorrecto, intenta nuevamente")
     } else {
-        usuariosServices.setUsuarioAutenticado(true, usuarioExiste)
-        mostrarUsuario(inputEmail.value)
+        setUsuarioAutenticado(true, existeUsuario, email)
+        mostrarUsuario(email)
+        window.location.href = ''
     }
 
 }
@@ -173,7 +175,7 @@ async function  registrarUsuario(e){
     e.preventDefault()
 
     if (inputPassword.value === inputRepetirPass.value) {
-        usuariosServices.crear(nombre=inputName.value, apellido=inputSurname.value, correo=inputEmail.value, password=inputPassword.value)
+        usuariosServices.crear(inputSurname.value, inputName.value, inputEmail.value, inputPassword.value)
         alert("Email registrado")
         window.location.href = "#login"
     } else {
@@ -197,7 +199,7 @@ async function usuarioExiste() {
     let userId = false
 
     res.forEach(user => {
-        if (user.email === email && user.password === password) {
+        if (user.correo === email && user.password === password) {
             userId = user.id
         }
     });
@@ -228,14 +230,13 @@ function mostrarMensaje(msj) {
     alert(msj);
 }
 
-export function setUsuarioAutenticado(booleano, idUsuario) {
+export function setUsuarioAutenticado(booleano, idUsuario, email) {
     /**
      * 1- Esta función deberá registar en el sessionStorage tres valores: autenticado, idUsuario y email.
      * 2- Los valores de los mismos serán tomados de los dos parámetros recibidos y el email será tomado desde la variable
      *    inputEmail.
      */
     
-    let email = inputEmail.value
 
     sessionStorage.setItem("autenticado", booleano)
     sessionStorage.setItem("idUsuario", idUsuario)

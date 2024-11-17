@@ -4,7 +4,7 @@ import { ventasServices } from "../../../servicios/ventas-servicios.js";
 import { getUsuarioAutenticado } from "../login/login.js";
 
 export async function vistaProducto(){
-    /**1-En esta función se deben capturar los elementos html: .carrusel, .seccionProducto, .seccionLogin. Para luego 
+    /**1-En esta función se deben capturar los elementos html: .carrusel, .seccionProductos, .seccionLogin. Para luego 
      * blanquear su contenido. 
      * 2-Se deberá capturar el elemento .vistaProducto.
      * 3-Se deberá llamar a la función leerParametro para recuperar de la url el idProducto. 
@@ -17,16 +17,17 @@ export async function vistaProducto(){
         let d = document
 
         let carrusel = d.querySelector(".carrusel")
-        let seccionProducto = d.querySelector(".seccionProducto")
+        let seccionProducto = d.querySelector(".seccionProductos")
         let seccionLogin = d.querySelector(".seccionLogin")
 
         carrusel.innerHTML = seccionProducto.innerHTML = seccionLogin.innerHTML = ""
 
         let vistaProducto = d.querySelector(".vistaProducto")
-
+        
         let idProducto = leerParametro()
 
         let producto = await productosServices.listar(idProducto)
+
         vistaProducto.innerHTML = htmlVistaProducto(idProducto, producto.nombre, producto.descripcion, producto.precio, producto.imagen)
 
         let btnComprar = d.querySelector("#btnComprar")
@@ -48,7 +49,7 @@ function htmlVistaProducto(id, nombre, descripcion, precio, imagen) {
      *   let cadena = `Hola, ${titulo} Claudia  en que podemos ayudarla`;
      *   
     */
-    let htmlProducto=
+    let htmlProductoRes=
     `
         <div class="imagen">
                 <img src="${imagen}" alt="producto">
@@ -72,7 +73,7 @@ function htmlVistaProducto(id, nombre, descripcion, precio, imagen) {
 
             </div>
     `
-    return htmlProducto
+    return htmlProductoRes
 }
 
 function leerParametro(){
@@ -104,7 +105,7 @@ function registrarCompra(){
      */
     
     let session = getUsuarioAutenticado()
-    if (!session.autenticado) {
+    if (session.autenticado == "false") {
         alert("Antes de realizar una compra debe iniciar sesión")
         return
     }
@@ -117,7 +118,7 @@ function registrarCompra(){
     let fecha = new Date().toISOString()
 
     ventasServices.crear(idUsuario, emailUsuario, idProducto, nameProducto.textContent, cantidadProducto.value, fecha, "").then(() => {
-        Location.replace("tienda.html")
+        window.location.replace("tienda.html")
         alert("Compra finalizada")
     }).catch((error) => {
         console.error("Error al registrar la compra:", error);
