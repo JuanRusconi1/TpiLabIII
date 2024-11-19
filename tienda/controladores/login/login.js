@@ -223,6 +223,13 @@ export function mostrarUsuario(email){
     btnRegister.setAttribute("href", "#logout")
 }
 
+export function noMostrarUsuario(){
+    let btnRegister = document.querySelector(".btnRegister")
+
+    btnRegister.textContent = "Registrarse"
+    btnRegister.setAttribute("href", "#register")
+}
+
 function mostrarMensaje(msj) {
     /**
      * Esta función muestra una alerta con el texto recibido en el parámetro msj.

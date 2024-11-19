@@ -105,7 +105,7 @@ function registrarCompra(){
      */
     
     let session = getUsuarioAutenticado()
-    if (session.autenticado == "false") {
+    if (session.autenticado == "false" || session.autenticado === null) {
         alert("Antes de realizar una compra debe iniciar sesión")
         return
     }
