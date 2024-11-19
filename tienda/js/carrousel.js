@@ -1,7 +1,6 @@
 const carrousel = document.querySelector('.conteCarrousel')
 const flechaIzquierda = document.querySelector('.left')
 const flechaDerecha = document.querySelector('.right')
-console.log(flechaIzquierda)
 
 flechaIzquierda.addEventListener('click', () => {
   const posicion = carrousel.style.transform

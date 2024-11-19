@@ -14,25 +14,21 @@ export async function vistaProducto(){
      * 7-Se deberá capturar el elemento html correspondiente al anchor btnComprar y enlazar el evento click a la función registrarCompra.  
     */
     try {
-        const pathImage = '/img/productos'
         let d = document
 
-        let carrusel = d.querySelector(".carrousel")
+        let carrusel = d.querySelector(".carrusel")
         let seccionProducto = d.querySelector(".seccionProductos")
-        let seccionLogin = d.querySelector(".login")
-        
+        let seccionLogin = d.querySelector(".seccionLogin")
+
         carrusel.innerHTML = seccionProducto.innerHTML = seccionLogin.innerHTML = ""
 
-        let vistaProducto = d.createElement('div')
-
-        vistaProducto.setAttribute('class','vistaProducto')
-        seccionProducto.append(vistaProducto)
+        let vistaProducto = d.querySelector(".vistaProducto")
         
-        // let vistaProducto = d.querySelector(".vistaProducto")
         let idProducto = leerParametro()
 
         let producto = await productosServices.listar(idProducto)
-        vistaProducto.innerHTML = htmlVistaProducto(idProducto, producto.nombre, producto.descripcion, producto.precio, `${pathImage}/celulares/motorola.jpg`)
+
+        vistaProducto.innerHTML = htmlVistaProducto(idProducto, producto.nombre, producto.descripcion, producto.precio, producto.imagen)
 
         let btnComprar = d.querySelector("#btnComprar")
         btnComprar.addEventListener("click", registrarCompra)
@@ -109,8 +105,10 @@ function registrarCompra(){
      */
     
     let session = getUsuarioAutenticado()
-    if (session.autenticado) return alert("Antes de realizar una compra debe iniciar sesión")
-
+    if (session.autenticado == "false") {
+        alert("Antes de realizar una compra debe iniciar sesión")
+        return
+    }
 
     let idUsuario = session.idUsuario
     let emailUsuario = session.email
@@ -118,8 +116,6 @@ function registrarCompra(){
     let cantidadProducto = document.querySelector("#cantidadProducto")
     let idProducto = nameProducto.getAttribute("data-idproducto")
     let fecha = new Date().toISOString()
-
-    if (isNaN(idProducto)) return alert("Ocurrió un problema al procesar la compra. Inténtelo de nuevo.")
 
     ventasServices.crear(idUsuario, emailUsuario, idProducto, nameProducto.textContent, cantidadProducto.value, fecha, "").then(() => {
         window.location.replace("tienda.html")
