@@ -5,18 +5,27 @@
 }
 
 .vistaProducto{
+    margin: 0 auto;
+    width: 70%;
     display: flex;
-    padding: 1rem;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
 }
 
 .vistaProducto .imagen{
-    flex: 1 1 ;
-    
+    flex: 1;
+    margin: 0 2rem 0 0;
+}
+
+.vistaProducto .imagen img {
+    max-width: 100%;
+    float: right;
 }
 
 
 .vistaProducto .texto{
-    flex: 3 1  ;
+    flex: 1;
     display: flex;
     flex-wrap: wrap;
     align-content: center;
@@ -26,22 +35,31 @@
 #nameProducto{
     width: 100%;
     margin: 2rem 0;
-    font-size: 3rem;
+    font-size: 4rem;
     font-weight: bold;
 }
 #descripcionProducto{
+    width: 100%;
     margin: 2rem 0;
+    font-size: 2rem;
     line-height: 2rem;
     text-align: justify;
 }
 
 #precioProducto{
     width: 100%;
-    margin: 2rem 0;
+    margin: 0 2rem 0 2rem ;
     font-size: 3rem;
     font-weight: bold;
-    color: rgb(189, 146, 39);
+    color: #23272C;
 }
+#contenedorPrecioBoton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .form-group{
     width: 100%;
 }
@@ -61,7 +79,55 @@
 }
 #btnComprar{
     margin: 2rem 0;
-    padding: 1.2rem 1.5rem;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    font-size: 2rem;
     color:white;
     background-color: black;
 }
+
+#tituloTalles {
+    display: inline-block;
+    width: 100%;
+    font-size: 2.5rem;
+    font-weight: 700
+}
+
+.radioInputs {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    width: 300px;
+    font-size: 2rem;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .radioInputs .radioLabel {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+  
+  .radioInputs .radioLabel input {
+    display: none;
+  }
+  
+  .radioInputs .radioLabel .name {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: 2px solid #23272C;
+    padding: .5rem 0;
+    color: rgba(51, 65, 85, 1);
+    transition: all .15s ease-in-out;
+  }
+  
+  .radioInputs .radioLabel input:checked ~ .name {
+    background-color: #23272C;
+    font-weight: 700;
+    color: white;
+  }
