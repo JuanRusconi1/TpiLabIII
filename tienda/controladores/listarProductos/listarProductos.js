@@ -8,7 +8,20 @@ function htmlCategoria(id, categoria){
     /*Y ADEMAS REEMPLAZAR EL TEXTO Nombre de Categoría POR EL VALOR QUE LLEGA AL PARAMETRO CATEGORIA DE LA FUNCION*/
     /*POR ULTIMO, LA FUNCION DEVOLVERA LA CADENA RESULTANTE*/   
     
+    let htmlCategoriaRes =
+    `
+    <div class="categoria" data-idCategoria="${id}">
+        <h1 class="categoria">${categoria}</h1>
+        <div class="productos">
+        
+            <!-- Aca se listan los productos-->
+            <p class="item-producto">Sin productos.</p>
+        
+        </div>                
+    </div>
 
+    `
+    return htmlCategoriaRes
 }
 
 function htmlItemProducto(id, imagen, nombre, precio){
@@ -23,8 +36,19 @@ function htmlItemProducto(id, imagen, nombre, precio){
      *   
     */
     
+    let htmlItemProductoRes = 
+    `
+    <div class="item-producto">
 
+        <img src="${imagen}" >
+        <p class="producto_nombre" name="motorola">${nombre}</p>
+        <p class="producto_precio">${precio}</p>
 
+        <a href="?idProducto=${id}#vistaProducto" type="button" class="producto_enlace" >Ver producto</a>
+
+    </div>
+    `
+    return htmlItemProductoRes
 }
 
 async function asignarProducto(id){
@@ -34,9 +58,22 @@ async function asignarProducto(id){
     /*4- LUEGO DEL BUCLE Y CON LA CADENA RESULTANTE SE DEBE CAPTURAR EL ELEMENTO DEL DOM PARA ASIGNAR ESTOS PRODUCTOS DENTRO DE LA CATEGORIA CORRESPONDIENTE */
     /*5- PARA ELLO PODEMOS HACER USO DE UN SELECTOR CSS QUE SELECCIONE EL ATRIBUTO data-idCategoria=X, Ó LA CLASE .productos  .SIENDO X EL VALOR LA CATEGORIA EN CUESTION.*/ 
      
-     
-        
+    try {
+        let res = await productosServices.listarPorCategoria(id)    
+        let cadena = ""
 
+        res.forEach(producto => {
+            cadena += htmlItemProducto(producto.id, producto.imagen, producto.nombre, producto.precio)
+        });
+
+        let categoria = document.querySelector(`.categoria[data-idCategoria="${id}"] .productos`)
+
+        if (categoria) {
+            categoria.innerHTML = cadena || '<p class="item-producto">Sin productos.</p>';
+        }
+    } catch (error) {
+        console.error(`Error asignando productos para la categoría ${id}:`, error);
+    }
 } 
 export async function listarProductos(){
     /************************** .
@@ -47,6 +84,24 @@ export async function listarProductos(){
      /* 5- LUEGO DEBERÁ LLAMAR UNA FUNCION, asignarProducto, QUE RECIBA COMO PARAMETRO EL ID DE LA CATEGORIA  */
      /* 6- FIN DEL BUCLE Y FIN DE LA FUNCION */   
 
-     
+    try {
+        let seccionProductos = document.querySelector(".seccionProductos")
+        seccionProductos.innerHTML = ""
+        let res = await categoriasServices.listar()
+
+        let cadena = ""
+        res.forEach(categoria => {
+            cadena += htmlCategoria(categoria.id, categoria.nombre)
+        });
+
+        seccionProductos.innerHTML = cadena
+        
+        for (const categoria of res) {
+            await asignarProducto(categoria.id);
+        }
+    } catch (error) {
+        console.error("Error listando productos:", error);
+    }
+        
 }  
 

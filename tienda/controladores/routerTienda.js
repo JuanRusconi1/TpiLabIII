@@ -7,7 +7,6 @@ export function RouterTienda(){
     let session = getUsuarioAutenticado();
     setSession(session); 
     let hash = location.hash;
-   
     if (hash === '#vistaProducto'){
         
         vistaProducto();
@@ -21,7 +20,7 @@ export function RouterTienda(){
 
     }else if (hash === '#logout' ) {      
         
-        setUsuarioAutenticado(false, -1);
+        setUsuarioAutenticado(false, -1, "Login");
         location.replace("tienda.html");
 
     }else if (hash === '' ) {
@@ -30,7 +29,6 @@ export function RouterTienda(){
         listarProductos();
         
     }    
-    console.log (hash);
 }
 
 function setSession(session){

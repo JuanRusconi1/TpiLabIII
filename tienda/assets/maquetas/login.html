@@ -41,16 +41,24 @@
                     <p >Iniciar sesión</p>
             
                     <form  class="formLogin" >
-            
-                      <div class="input-group">
+                      
+                      <div class="input-group double-group">
                         
-                        <input type="email" class="form-control" id="loginEmail" placeholder="Email" name="loginEmail" autocomplete required>
+                        <input type="text" class="form-control" id="reLoginName" placeholder="Name" name="reLoginName" autocomplete="given-name" required>
+                        
+                        <input type="text" class="form-control" id="reLoginSurname" placeholder="Surname" name="reLoginSurname" autocomplete="family-name" required>
                            
                       </div>
             
                       <div class="input-group">
                         
-                        <input type="password" class="form-control" id="loginPassword" placeholder="Password" name="loginPassword" autocomplete required>
+                        <input type="email" class="form-control" id="loginEmail" placeholder="Email" name="loginEmail" autocomplete="email" required>
+                           
+                      </div>
+            
+                      <div class="input-group">
+                        
+                        <input type="password" class="form-control" id="loginPassword" placeholder="Password" name="loginPassword" autocomplete="new-password" required>
                        
                       </div>
 
