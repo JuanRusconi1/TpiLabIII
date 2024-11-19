@@ -1,26 +1,21 @@
 const htmlCarrusel =
 
 `
-    <div class="slider-container">
-        <div class="slide active">
-            <img src="/img/slider/imagen1.png" alt="Imagen 1" style="width:100%; height:100%; object-fit:cover;">
+ <div class="carrousel">
+        <div class="conteCarrousel" style="transform: translateX(0%)">
+          <div class="itemCarrousel" id="itemCarrousel-1">
+            <img src="/img/slider/imagen1.png" alt="" />
+          </div>
+          <div class="itemCarrousel" id="itemCarrousel-2">
+            <img src="/img/slider/imagen2.png" alt="" />
+          </div>
+          <div class="itemCarrousel" id="itemCarrousel-3">
+            <img src="/img/slider/imagen3.png" alt="" />
+          </div>
         </div>
-        <div class="slide">
-            <img src="/img/slider/imagen2.png" alt="Imagen 2" style="width:100%; height:100%; object-fit:cover;">
-        </div>
-        <div class="slide">
-            <img src="/img/slider/imagen3.png" alt="Imagen 3" style="width:100%; height:100%; object-fit:cover;">
-        </div>
-
-        <button class="prev" ">&#10094;</button>
-        <button class="next" ">&#10095;</button>
-
-        <div class="dots">
-            <span class="dot active-dot" ></span>
-            <span class="dot" ></span>
-            <span class="dot" ></span>
-        </div>
-    </div>
+        <i class="fas fa-chevron-left left"></i>
+        <i class="fas fa-chevron-right right"></i>
+      </div>
 `
 
 
@@ -33,53 +28,28 @@ export async function Carrusel(){
     
     seccionLogin.innerHTML = "";
     seccionCarrusel.innerHTML = htmlCarrusel;
-    let buttonPrev = seccionCarrusel.querySelector(".prev");
-    let buttonNext = seccionCarrusel.querySelector(".next");
-    let dot1 = seccionCarrusel.querySelector(".dot:nth-child(1)");
-    let dot2 = seccionCarrusel.querySelector(".dot:nth-child(2)");
-    let dot3 = seccionCarrusel.querySelector(".dot:nth-child(3)");
 
-    buttonPrev.addEventListener('click', nextSlide);
-    buttonNext.addEventListener('click', prevSlide);
+    const carrousel = document.querySelector('.conteCarrousel')
+    const flechaIzquierda = document.querySelector('.left')
+    const flechaDerecha = document.querySelector('.right')
 
-    dot1.addEventListener('click', () => currentSlide(1));
-    dot2.addEventListener('click', () => currentSlide(2));
-    dot3.addEventListener('click', () => currentSlide(3));
+    flechaIzquierda.addEventListener('click', () => {
+    const posicion = carrousel.style.transform
+    if (posicion.includes('-33%')) {
+        return carrousel.style.transform = 'translateX(0%)'
+    } 
+    if (posicion.includes('-66%')) {
+        return carrousel.style.transform = 'translateX(-33%)'
+    } 
+    })
+    flechaDerecha.addEventListener('click', () => {
+    const posicion = carrousel.style.transform
+    if (posicion.includes('(0%)')) {
+        return carrousel.style.transform = 'translateX(-33%)'
+    } 
+    if (posicion.includes('-33%')) {
+        return carrousel.style.transform = 'translateX(-66%)'
+    } 
+    })
 
-    showSlides(slideIndex);
-}
-function nextSlide(){
-    changeSlide(1);
-}
-
-function prevSlide(){
-    changeSlide(-1);
-}
-
-function changeSlide(n) {
-    showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-    showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-    const slides = document.getElementsByClassName("slide");
-    const dots = document.getElementsByClassName("dot");
-    
-    if (n > slides.length) {
-        slideIndex = 1;
-    }
-    if (n < 1) {
-        slideIndex = slides.length;
-    }
-    
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].classList.remove("active");
-        dots[i].classList.remove("active-dot");
-    }
-    
-    slides[slideIndex-1].classList.add("active");
-    dots[slideIndex-1].classList.add("active-dot");
 }
