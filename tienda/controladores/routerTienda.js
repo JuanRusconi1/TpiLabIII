@@ -1,7 +1,7 @@
 import { Carrusel } from "./carrusel/carrusel.js";
 import { listarProductos } from "./listarProductos/listarProductos.js";
 import { vistaProducto } from "./listarProductos/vistaProducto.js";
-import { getUsuarioAutenticado, login, mostrarUsuario, register, setUsuarioAutenticado } from "./login/login.js";
+import { getUsuarioAutenticado, login, mostrarUsuario, noMostrarUsuario, register, setUsuarioAutenticado } from "./login/login.js";
 
 export function RouterTienda(){
     let session = getUsuarioAutenticado();
@@ -21,6 +21,7 @@ export function RouterTienda(){
     }else if (hash === '#logout' ) {      
         
         setUsuarioAutenticado(false, -1, "Login");
+        noMostrarUsuario()
         location.replace("tienda.html");
 
     }else if (hash === '' ) {
@@ -36,7 +37,7 @@ function setSession(session){
     * Esta función se utiliza para recuperar los datos de sessión cada vez que se recarga la página.
     */ 
    let d=document;
-   if ( session.autenticado ) {
+   if ( session.autenticado === "true" ) {
         mostrarUsuario(session.email);
 
    }

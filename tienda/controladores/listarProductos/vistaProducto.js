@@ -28,7 +28,7 @@ export async function vistaProducto(){
 
         let producto = await productosServices.listar(idProducto)
 
-        vistaProducto.innerHTML = htmlVistaProducto(idProducto, producto.nombre, producto.descripcion, producto.precio, producto.imagen)
+        vistaProducto.innerHTML = htmlVistaProducto(idProducto, producto.nombre, producto.descripcion, producto.precio, `/img/productos/moda/${producto.imagen}.jpg`)
 
         let btnComprar = d.querySelector("#btnComprar")
         btnComprar.addEventListener("click", registrarCompra)
@@ -56,20 +56,42 @@ function htmlVistaProducto(id, nombre, descripcion, precio, imagen) {
             </div>
             <div class="texto">
                 <p id="nameProducto" data-idproducto="${id}">${nombre}</p>
+                
+                <p id="tituloTalles">Talle</p>
 
-                <p id="descripcionProducto">${descripcion}</p>
-
-                <p id="precioProducto">$ ${precio}</p>
+                <div class="radioInputs">
+                    <label class="radioLabel">
+                      <input type="radio" name="talle">
+                      <span class="name">S</span>
+                    </label>
+                    <label class="radioLabel">
+                      <input type="radio" name="talle">
+                      <span class="name">M</span>
+                    </label>
+                    <label class="radioLabel">
+                      <input type="radio" name="talle">
+                      <span class="name">L</span>
+                    </label>
+                    <label class="radioLabel">
+                      <input type="radio" name="talle">
+                      <span class="name">XL</span>
+                    </label>
+                    <label class="radioLabel">
+                      <input type="radio" name="talle">
+                      <span class="name">XXL</span>
+                    </label>
+                  </div>
 
                 <div class="form-group">
                     <label for="cantidadProducto">Cantidad</label>
                     <input type="number" step="1" min ="1" value="1" id="cantidadProducto">
-
-
+                </div>
+                <div id="contenedorPrecioBoton"> 
+                    <a id="btnComprar" >Comprar</a>
+                    <p id="precioProducto">$ ${precio}</p>
                 </div>
                 
-                <a id="btnComprar" >Comprar</a>
-
+                <p id="descripcionProducto">${descripcion}</p>
 
             </div>
     `
@@ -105,7 +127,7 @@ function registrarCompra(){
      */
     
     let session = getUsuarioAutenticado()
-    if (session.autenticado == "false") {
+    if (session.autenticado == "false" || session.autenticado === null) {
         alert("Antes de realizar una compra debe iniciar sesión")
         return
     }
