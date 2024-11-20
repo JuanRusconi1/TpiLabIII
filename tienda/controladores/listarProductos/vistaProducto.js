@@ -61,7 +61,7 @@ function htmlVistaProducto(id, nombre, descripcion, precio, imagen) {
 
                 <div class="radioInputs">
                     <label class="radioLabel">
-                      <input type="radio" name="talle">
+                      <input type="radio" name="talle" checked>
                       <span class="name">S</span>
                     </label>
                     <label class="radioLabel">
