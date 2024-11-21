@@ -4,13 +4,13 @@ const htmlCarrusel =
  <div class="carrousel">
         <div class="conteCarrousel" style="transform: translateX(0%)">
           <div class="itemCarrousel" id="itemCarrousel-1">
-            <img src="/img/slider/imagen1.png" alt="" />
+            <img src="/img/slider/slider1.png" alt="" />
           </div>
           <div class="itemCarrousel" id="itemCarrousel-2">
-            <img src="/img/slider/imagen2.png" alt="" />
+            <img src="/img/slider/slider2.png" alt="" />
           </div>
           <div class="itemCarrousel" id="itemCarrousel-3">
-            <img src="/img/slider/imagen3.png" alt="" />
+            <img src="/img/slider/slider3.png" alt="" />
           </div>
         </div>
         <i class="fas fa-chevron-left left"></i>
@@ -35,20 +35,20 @@ export async function Carrusel(){
 
     flechaIzquierda.addEventListener('click', () => {
     const posicion = carrousel.style.transform
-    if (posicion.includes('-33%')) {
+    if (posicion.includes('-33.3%')) {
         return carrousel.style.transform = 'translateX(0%)'
     } 
-    if (posicion.includes('-66%')) {
-        return carrousel.style.transform = 'translateX(-33%)'
+    if (posicion.includes('-66.6%')) {
+        return carrousel.style.transform = 'translateX(-33.3%)'
     } 
     })
     flechaDerecha.addEventListener('click', () => {
     const posicion = carrousel.style.transform
     if (posicion.includes('(0%)')) {
-        return carrousel.style.transform = 'translateX(-33%)'
+        return carrousel.style.transform = 'translateX(-33.3%)'
     } 
-    if (posicion.includes('-33%')) {
-        return carrousel.style.transform = 'translateX(-66%)'
+    if (posicion.includes('-33.3%')) {
+        return carrousel.style.transform = 'translateX(-66.6%)'
     } 
     })
 
