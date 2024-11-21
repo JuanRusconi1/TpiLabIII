@@ -28,7 +28,7 @@ export async function vistaProducto(){
 
         let producto = await productosServices.listar(idProducto)
 
-        vistaProducto.innerHTML = htmlVistaProducto(idProducto, producto.nombre, producto.descripcion, producto.precio, `/img/productos/moda/${producto.imagen}.jpg`)
+        vistaProducto.innerHTML = htmlVistaProducto(idProducto, producto.nombre, producto.descripcion, producto.precio, producto.foto)
 
         let btnComprar = d.querySelector("#btnComprar")
         btnComprar.addEventListener("click", registrarCompra)
@@ -61,23 +61,23 @@ function htmlVistaProducto(id, nombre, descripcion, precio, imagen) {
 
                 <div class="radioInputs">
                     <label class="radioLabel">
-                      <input type="radio" name="talle" checked>
+                      <input type="radio" name="talle" value="S" checked>
                       <span class="name">S</span>
                     </label>
                     <label class="radioLabel">
-                      <input type="radio" name="talle">
+                      <input type="radio" name="talle" value="M">
                       <span class="name">M</span>
                     </label>
                     <label class="radioLabel">
-                      <input type="radio" name="talle">
+                      <input type="radio" name="talle" value="L">
                       <span class="name">L</span>
                     </label>
                     <label class="radioLabel">
-                      <input type="radio" name="talle">
+                      <input type="radio" name="talle" value="XL">
                       <span class="name">XL</span>
                     </label>
                     <label class="radioLabel">
-                      <input type="radio" name="talle">
+                      <input type="radio" name="talle" value="XXL">
                       <span class="name">XXL</span>
                     </label>
                   </div>
@@ -132,14 +132,22 @@ function registrarCompra(){
         return
     }
 
+    let talleSeleccionado = () => {
+        let listaRadio = document.querySelectorAll("input[type='radio']")
+        for (let radio of listaRadio) {
+            if (radio.checked) return radio.value 
+        }
+    }
     let idUsuario = session.idUsuario
     let emailUsuario = session.email
     let nameProducto = document.querySelector("#nameProducto")
     let cantidadProducto = document.querySelector("#cantidadProducto")
     let idProducto = nameProducto.getAttribute("data-idproducto")
     let fecha = new Date().toISOString()
+    let talle = talleSeleccionado()
 
-    ventasServices.crear(idUsuario, emailUsuario, idProducto, nameProducto.textContent, cantidadProducto.value, fecha, "").then(() => {
+
+    ventasServices.crear(idUsuario, emailUsuario, idProducto, nameProducto.textContent, cantidadProducto.value, fecha, "", talle).then(() => {
         window.location.replace("tienda.html")
         alert("Compra finalizada")
     }).catch((error) => {
@@ -147,3 +155,6 @@ function registrarCompra(){
         alert("Ocurrió un problema al procesar la compra. Inténtelo de nuevo.");
     })
 }
+
+
+
