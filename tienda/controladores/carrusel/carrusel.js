@@ -29,9 +29,9 @@ export async function Carrusel(){
     seccionLogin.innerHTML = "";
     seccionCarrusel.innerHTML = htmlCarrusel;
 
-    const carrousel = document.querySelector('.conteCarrousel')
-    const flechaIzquierda = document.querySelector('.left')
-    const flechaDerecha = document.querySelector('.right')
+    const carrousel = d.querySelector('.conteCarrousel')
+    const flechaIzquierda = d.querySelector('.left')
+    const flechaDerecha = d.querySelector('.right')
 
     flechaIzquierda.addEventListener('click', () => {
     const posicion = carrousel.style.transform
