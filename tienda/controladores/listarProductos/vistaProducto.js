@@ -28,7 +28,7 @@ export async function vistaProducto(){
 
         let producto = await productosServices.listar(idProducto)
 
-        vistaProducto.innerHTML = htmlVistaProducto(idProducto, producto.nombre, producto.descripcion, producto.precio, producto.foto)
+        vistaProducto.innerHTML = htmlVistaProducto(idProducto, producto.nombre, producto.descripcion, producto.precio, producto.imagen)
 
         let btnComprar = d.querySelector("#btnComprar")
         btnComprar.addEventListener("click", registrarCompra)
