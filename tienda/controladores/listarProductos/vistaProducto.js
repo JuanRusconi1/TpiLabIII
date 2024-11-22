@@ -56,20 +56,42 @@ function htmlVistaProducto(id, nombre, descripcion, precio, imagen) {
             </div>
             <div class="texto">
                 <p id="nameProducto" data-idproducto="${id}">${nombre}</p>
+                
+                <p id="tituloTalles">Talle</p>
 
-                <p id="descripcionProducto">${descripcion}</p>
-
-                <p id="precioProducto">$ ${precio}</p>
+                <div class="radioInputs">
+                    <label class="radioLabel">
+                      <input type="radio" name="talle" value="S" checked>
+                      <span class="name">S</span>
+                    </label>
+                    <label class="radioLabel">
+                      <input type="radio" name="talle" value="M">
+                      <span class="name">M</span>
+                    </label>
+                    <label class="radioLabel">
+                      <input type="radio" name="talle" value="L">
+                      <span class="name">L</span>
+                    </label>
+                    <label class="radioLabel">
+                      <input type="radio" name="talle" value="XL">
+                      <span class="name">XL</span>
+                    </label>
+                    <label class="radioLabel">
+                      <input type="radio" name="talle" value="XXL">
+                      <span class="name">XXL</span>
+                    </label>
+                  </div>
 
                 <div class="form-group">
                     <label for="cantidadProducto">Cantidad</label>
                     <input type="number" step="1" min ="1" value="1" id="cantidadProducto">
-
-
+                </div>
+                <div id="contenedorPrecioBoton"> 
+                    <a id="btnComprar" >Comprar</a>
+                    <p id="precioProducto">$ ${precio}</p>
                 </div>
                 
-                <a id="btnComprar" >Comprar</a>
-
+                <p id="descripcionProducto">${descripcion}</p>
 
             </div>
     `
@@ -110,14 +132,22 @@ function registrarCompra(){
         return
     }
 
+    let talleSeleccionado = () => {
+        let listaRadio = document.querySelectorAll("input[type='radio']")
+        for (let radio of listaRadio) {
+            if (radio.checked) return radio.value 
+        }
+    }
     let idUsuario = session.idUsuario
     let emailUsuario = session.email
     let nameProducto = document.querySelector("#nameProducto")
     let cantidadProducto = document.querySelector("#cantidadProducto")
     let idProducto = nameProducto.getAttribute("data-idproducto")
     let fecha = new Date().toISOString()
+    let talle = talleSeleccionado()
 
-    ventasServices.crear(idUsuario, emailUsuario, idProducto, nameProducto.textContent, cantidadProducto.value, fecha, "").then(() => {
+
+    ventasServices.crear(idUsuario, emailUsuario, idProducto, nameProducto.textContent, cantidadProducto.value, fecha, "", talle).then(() => {
         window.location.replace("tienda.html")
         alert("Compra finalizada")
     }).catch((error) => {
@@ -125,3 +155,6 @@ function registrarCompra(){
         alert("Ocurrió un problema al procesar la compra. Inténtelo de nuevo.");
     })
 }
+
+
+

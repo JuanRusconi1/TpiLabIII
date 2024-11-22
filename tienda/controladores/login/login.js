@@ -223,10 +223,15 @@ export function mostrarUsuario(email){
     btnRegister.setAttribute("href", "#logout")
 }
 
-export function noMostrarUsuario(){
+export function noMostrarUsuario() {
+    /**
+     * Esta función se encarga de volver a mostrar el boton de Registrarse una vez se ejecuta el Logout.
+     */
+
     let btnRegister = document.querySelector(".btnRegister")
 
     btnRegister.textContent = "Registrarse"
+
     btnRegister.setAttribute("href", "#register")
 }
 
@@ -234,6 +239,7 @@ function mostrarMensaje(msj) {
     /**
      * Esta función muestra una alerta con el texto recibido en el parámetro msj.
      */
+
     alert(msj);
 }
 
@@ -244,7 +250,6 @@ export function setUsuarioAutenticado(booleano, idUsuario, email) {
      *    inputEmail.
      */
     
-
     sessionStorage.setItem("autenticado", booleano)
     sessionStorage.setItem("idUsuario", idUsuario)
     sessionStorage.setItem("email", email)

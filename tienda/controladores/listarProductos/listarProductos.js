@@ -1,7 +1,7 @@
 import { categoriasServices } from "../../../servicios/categorias-servicios.js";
 import { productosServices } from "../../../servicios/productos-servicios.js";
 
-function htmlCategoria(id, categoria){
+function htmlCategoria(id, categoria) {
     /*ESTA FUNCION RECIBE DOS PARAMETROS ID Y CATEGORIA*/
     /*EN ESTA SE GENERA UNA CADENA DE CARACTERES CON EL CODIGO HTML CORRESPONDIENTE A LA CATEGORIA (ESTA EN ASSETS/MODULOS/listarProducto.html)*/
     /*SE DEBERÁ CONCATENAR PARA INCORPORAR EL id DE LA CATEGORIA AL ATRIBUTO data-idCategoria  */
@@ -11,7 +11,7 @@ function htmlCategoria(id, categoria){
     let htmlCategoriaRes =
     `
     <div class="categoria" data-idCategoria="${id}">
-        <h1 class="categoria">${categoria}</h1>
+        <h1 class="categoria" id='${categoria}'>${categoria}</h1>
         <div class="productos">
         
             <!-- Aca se listan los productos-->
@@ -22,6 +22,14 @@ function htmlCategoria(id, categoria){
 
     `
     return htmlCategoriaRes
+}
+
+function htmlBotonCategoria(id, categoria) {
+    return `
+            <li class="botonCategoria">
+                <a href="#${categoria}">${categoria}</a>
+            </li>
+    `
 }
 
 function htmlItemProducto(id, imagen, nombre, precio){
@@ -42,7 +50,7 @@ function htmlItemProducto(id, imagen, nombre, precio){
 
         <img src="${imagen}" >
         <p class="producto_nombre" name="motorola">${nombre}</p>
-        <p class="producto_precio">${precio}</p>
+        <p class="producto_precio">$${precio}</p>
 
         <a href="?idProducto=${id}#vistaProducto" type="button" class="producto_enlace" >Ver producto</a>
 
@@ -104,4 +112,27 @@ export async function listarProductos(){
     }
         
 }  
+
+export async function mostrarBotonesCategorias () {
+    try {
+        let seccionCategorias = document.querySelector('.seccionCategorias')
+
+        let navCategorias = document.createElement('nav')
+
+        let listaCategorias = document.createElement('ul')
+        listaCategorias.setAttribute('class', 'listaCategorias')
+
+        navCategorias.prepend(listaCategorias)
+        seccionCategorias.prepend(navCategorias)
+
+        let res = await categoriasServices.listar()
+
+        for (const categoria of res) {
+            listaCategorias.innerHTML += htmlBotonCategoria(categoria.id, categoria.nombre)
+        }
+
+    } catch (error) {
+        console.error("Error listando botones de categorias:", error);
+    }
+}
 
