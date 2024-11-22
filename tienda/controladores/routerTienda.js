@@ -1,5 +1,5 @@
 import { Carrusel } from "./carrusel/carrusel.js";
-import { listarProductos } from "./listarProductos/listarProductos.js";
+import { listarProductos, mostrarBotonesCategorias } from "./listarProductos/listarProductos.js";
 import { vistaProducto } from "./listarProductos/vistaProducto.js";
 import { getUsuarioAutenticado, login, mostrarUsuario, noMostrarUsuario, register, setUsuarioAutenticado } from "./login/login.js";
 
@@ -25,7 +25,7 @@ export function RouterTienda(){
         location.replace("tienda.html");
 
     }else if (hash === '' ) {
-        
+        mostrarBotonesCategorias()
         Carrusel();
         listarProductos();
         
