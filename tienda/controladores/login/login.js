@@ -2,53 +2,56 @@
 import { usuariosServices } from "../../../servicios/usuarios-servicios.js";
 
 /**1- Se debe asignar a la siguiente constante todo el código correspondiente al componente de login (/asset/modulos/login.html)  */
-const htmlLogin=
-`
-    <div class="contenedorLogin">
-
-                <div class="cajaLogin">
-                    <p >Iniciar sesión</p>
-            
-                    <form  class="formLogin" >
-                      
-                      <div class="input-group double-group">
-                        
-                        <input type="text" class="form-control" id="reLoginName" placeholder="Name" name="reLoginName" autocomplete="given-name" required>
-                        
-                        <input type="text" class="form-control" id="reLoginSurname" placeholder="Surname" name="reLoginSurname" autocomplete="family-name" required>
-                           
-                      </div>
-            
-                      <div class="input-group">
-                        
-                        <input type="email" class="form-control" id="loginEmail" placeholder="Email" name="loginEmail" autocomplete="email" required>
-                           
-                      </div>
-            
-                      <div class="input-group">
-                        
-                        <input type="password" class="form-control" id="loginPassword" placeholder="Password" name="loginPassword" autocomplete="new-password" required>
-                       
-                      </div>
-
-                      <div class="input-group">
-                        
-                        <input type="password" class="form-control" id="reLoginPassword" placeholder="Repetir Password" name="reLoginPassword"  required>
-                       
-                      </div>
-                                 
-                      <div class="row">
-                                          
-                        <div class="col-4">
-                          <button type="submit"  id="iniciar-sesion" class="btnAmarillo">Login</button>
-                        </div>
+function htmlVistaLogin(operacion, mensaje_boton) {
+    const htmlLogin=
+    `   
+        <div class="contenedorLogin">
+    
+                    <div class="cajaLogin">
+                        <p data-id="${mensaje_boton}">${operacion}</p>
+                
+                        <form  class="formLogin" >
+                          
+                          <div class="input-group double-group">
                             
+                            <input type="text" class="form-control" id="reLoginName" placeholder="Name" name="reLoginName" autocomplete="given-name" required>
+                            
+                            <input type="text" class="form-control" id="reLoginSurname" placeholder="Surname" name="reLoginSurname" autocomplete="family-name" required>
+                               
+                          </div>
+                
+                          <div class="input-group">
+                            
+                            <input type="email" class="form-control" id="loginEmail" placeholder="Email" name="loginEmail" autocomplete="email" required>
+                               
+                          </div>
+                
+                          <div class="input-group">
+                            
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Password" name="loginPassword" autocomplete="new-password" required>
+                           
+                          </div>
+    
+                          <div class="input-group">
+                            
+                            <input type="password" class="form-control" id="reLoginPassword" placeholder="Repetir Password" name="reLoginPassword"  required>
+                           
+                          </div>
+                                     
+                          <div class="row">
+                                              
+                            <div class="col-4">
+                              <button type="submit"  id="iniciar-sesion" class="btnAmarillo">${mensaje_boton}</button>
+                            </div>
+                                
+                          </div>
+                        </form>
+                                 
                       </div>
-                    </form>
-                             
-                  </div>
-            </div>
-`;
+                </div>
+    `;
+    return htmlLogin
+}
 /*2-Se deben definir 4 variables globales al módulo, una para el formulario html, y otras tres para los inputs de email, contraseña y 
 *   repetir contraseña
 */
@@ -106,9 +109,18 @@ function crearFormulario(registrar){
     let carrusel = d.querySelector(".carrusel")
     let seccionProductos = d.querySelector(".seccionProductos")
     let vistaProducto = d.querySelector(".vistaProducto")
-    carrusel.innerHTML = seccionProductos.innerHTML = vistaProducto.innerHTML = ""
+    let seccionCategorias = d.querySelector(".seccionCategorias")
+    carrusel.innerHTML = seccionProductos.innerHTML = vistaProducto.innerHTML = seccionCategorias.innerHTML = ""
+    
+    seccionCategorias.style.backgroundColor = seccionCategorias.style.borderBottom = seccionCategorias.style.boxShadow = "initial"
+
     let seccionLogin = d.querySelector(".seccionLogin")
-    seccionLogin.innerHTML = htmlLogin
+    if (registrar === true) {
+        seccionLogin.innerHTML = htmlVistaLogin("Registrarse", "Sign Up")
+    } else {
+        seccionLogin.innerHTML = htmlVistaLogin("Iniciar Sesión", "Login")
+    }
+    
 
     inputName = d.querySelector("#reLoginName")
     inputSurname = d.querySelector("#reLoginSurname")

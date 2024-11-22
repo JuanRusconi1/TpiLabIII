@@ -22,12 +22,16 @@ header{
     min-height: 10vh;
     padding: 1rem;
     box-shadow: 1px 1px 10px ;
+    border-bottom: 0.2rem solid black;
 }
 .logo {
-    width: 5%;
-    max-width: 100px;
+    width: 100%;
     filter: invert(1) brightness(2);
     margin-left: 1rem;
+}
+.logoContainer {
+    width: 5%;
+    max-width: 100px;
 }
 main {
     min-height: 85vh;
@@ -45,9 +49,9 @@ a{
 .login{
     display: flex;
     align-items: center;
-   
-    
+    margin-right: 1.5rem;
 }
+
 .login div:first-child {
     font-size:x-large;
 }    
@@ -67,7 +71,7 @@ a{
     background-color: white;
     opacity: 1;
     padding: 1.5rem 0;
-    border-bottom: 2px solid #23272C;
+    border-bottom: 0.2rem solid #23272C;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 4px;
 }
 
@@ -79,6 +83,10 @@ a{
     justify-content: space-evenly;
     margin: 0 auto;
     padding: 0;
+}
+
+.botonCategoria {
+    margin: 0.8rem 0;
 }
 
 .botonCategoria a {

@@ -15,12 +15,19 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-.cajaLogin p{
+.cajaLogin p[data-id="Login"]{
     color: rgb(63, 62, 62);
     font-size: 3rem;
     font-weight: 600;
     padding: 2rem 10rem;
-       
+
+}
+
+.cajaLogin p[data-id="Sign Up"]{
+    color: rgb(63, 62, 62);
+    font-size: 3rem;
+    font-weight: 600;
+    padding: 2rem 13rem;
 }
 
 .input-group input{
