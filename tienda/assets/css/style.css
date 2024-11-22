@@ -33,6 +33,14 @@ header{
     width: 5%;
     max-width: 100px;
 }
+.brand {
+    width: 100%;
+    filter: invert(1) brightness(2);
+}
+.brandContainer {
+    width: 15%;
+    max-width: 500px;
+}
 main {
     min-height: 85vh;
 }
