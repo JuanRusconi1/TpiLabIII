@@ -111,7 +111,7 @@ function crearFormulario(registrar){
     let vistaProducto = d.querySelector(".vistaProducto")
     let seccionCategorias = d.querySelector(".seccionCategorias")
     carrusel.innerHTML = seccionProductos.innerHTML = vistaProducto.innerHTML = seccionCategorias.innerHTML = ""
-    
+    seccionCategorias.style.display = vistaProducto.style.display = 'none'
     seccionCategorias.style.backgroundColor = seccionCategorias.style.borderBottom = seccionCategorias.style.boxShadow = "initial"
 
     let seccionLogin = d.querySelector(".seccionLogin")

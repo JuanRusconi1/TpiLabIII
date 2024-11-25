@@ -34,12 +34,15 @@ export async function Carrusel(){
     const flechaDerecha = d.querySelector('.right')
 
     flechaIzquierda.addEventListener('click', () => {
-    const posicion = carrousel.style.transform
-    if (posicion.includes('-33.3%')) {
-        return carrousel.style.transform = 'translateX(0%)'
-    } 
+      const posicion = carrousel.style.transform
+      if (posicion.includes('-33.3%')) {
+          return carrousel.style.transform = 'translateX(0%)'
+      } 
     if (posicion.includes('-66.6%')) {
         return carrousel.style.transform = 'translateX(-33.3%)'
+    } 
+    if (posicion.includes('0%')) {
+        return carrousel.style.transform = 'translateX(-66.6%)'
     } 
     })
     flechaDerecha.addEventListener('click', () => {
@@ -49,6 +52,9 @@ export async function Carrusel(){
     } 
     if (posicion.includes('-33.3%')) {
         return carrousel.style.transform = 'translateX(-66.6%)'
+    } 
+    if (posicion.includes('-66.6%')) {
+        return carrousel.style.transform = 'translateX(0%)'
     } 
     })
 
