@@ -3,15 +3,6 @@
     box-sizing: border-box;
 }
 
-.seccionCategorias {
-    display: none;
-}
-
-.vistaProducto {
-    display: none;
-}
-
-
 .contenedorLogin{
     display: flex;
     justify-content: center;
@@ -30,7 +21,7 @@
 }
 
 .cajaLogin p[data-id="Login"]{
-    color: rgb(63, 62, 62);
+    color: #646a71;
     font-size: 3rem;
     font-weight: 600;
     padding: 2rem 10rem;
@@ -38,7 +29,7 @@
 }
 
 .cajaLogin p[data-id="Sign Up"]{
-    color: rgb(63, 62, 62);
+    color: #646a71;
     font-size: 3rem;
     font-weight: 600;
     padding: 2rem 13rem;
