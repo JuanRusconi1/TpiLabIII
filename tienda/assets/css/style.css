@@ -26,11 +26,13 @@ header{
 }
 .logo {
     width: 100%;
+    max-width: 100px;
     filter: invert(1) brightness(2);
     margin-left: 1rem;
 }
 .logoContainer {
     width: 5%;
+    min-width: 80px;
     max-width: 100px;
 }
 .brand {
@@ -38,6 +40,8 @@ header{
     filter: invert(1) brightness(2);
 }
 .brandContainer {
+    display: flex;
+    align-items: center;
     width: 15%;
     max-width: 500px;
 }
