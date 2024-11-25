@@ -36,10 +36,8 @@ function setSession(session){
    /**
     * Esta función se utiliza para recuperar los datos de sessión cada vez que se recarga la página.
     */ 
-   let d=document;
    if ( session.autenticado === "true" ) {
         mostrarUsuario(session.email);
-
    }
    
 

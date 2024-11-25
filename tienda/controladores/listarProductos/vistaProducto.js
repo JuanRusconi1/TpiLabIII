@@ -19,8 +19,10 @@ export async function vistaProducto(){
         let carrusel = d.querySelector(".carrusel")
         let seccionProducto = d.querySelector(".seccionProductos")
         let seccionLogin = d.querySelector(".seccionLogin")
+        let seccionCategorias = d.querySelector(".seccionCategorias")
 
-        carrusel.innerHTML = seccionProducto.innerHTML = seccionLogin.innerHTML = ""
+        carrusel.innerHTML = seccionProducto.innerHTML = seccionLogin.innerHTML = seccionCategorias.innerHTML = ""
+        seccionCategorias.style.backgroundColor = seccionCategorias.style.borderBottom = seccionCategorias.style.boxShadow = "initial"
 
         let vistaProducto = d.querySelector(".vistaProducto")
         

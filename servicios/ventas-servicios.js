@@ -1,6 +1,7 @@
 const url = "https://6733d78da042ab85d1182803.mockapi.io/tpiLab3/ventas";
 
 
+
 async function listar(id) {
     let cadUrl;
     if(isNaN(id))

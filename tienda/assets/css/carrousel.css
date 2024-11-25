@@ -1,6 +1,7 @@
 .carrousel {
   position: relative;
   margin-top: 1rem;
+  overflow-x: hidden;
 }
 .conteCarrousel {
   width: 300%;
